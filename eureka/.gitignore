@@ -32,10 +32,3 @@ build/
 ### VS Code ###
 .vscode/
 
-# Ignore files containing sensitive information
-**/*password*
-**/*username*
-**/application.properties
-**/application.yml
-**/application-*.properties
-**/application-*.yml
