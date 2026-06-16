@@ -40,5 +40,3 @@ logs/
 .coverage
 htmlcov/
 *.lcov
-
-application.properties
