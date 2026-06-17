@@ -1,0 +1,61 @@
+spring:
+  application:
+    # Nombre con el que este microservicio se registra en Eureka.
+    # El compañero que configure el API Gateway usará este nombre para enrutar
+    # peticiones (ej. /api/ratings/** -> rating-service).
+    name: rating-service
+
+  # Conexión a la base de datos PostgreSQL local de este microservicio.
+  # Cada microservicio tiene SU PROPIA base de datos (un patrón típico de microservicios).
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ratingservice_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      # "validate": Hibernate solo VERIFICA que las entidades coincidan con
+      # las tablas reales, pero NO crea ni modifica tablas automáticamente.
+      # Las tablas las crea Flyway (ver V1__create_ratings_table.sql).
+      ddl-auto: validate
+    show-sql: true # Muestra en consola las consultas SQL que ejecuta Hibernate (útil para depurar).
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    # Carpeta donde Flyway busca los scripts de migración (V1__..., V2__..., etc.)
+    locations: classpath:db/migration
+
+server:
+  # Puerto en el que corre este microservicio. Elegido para no chocar con
+  # AuthService (8080), ProfileService (8081), InventoryService (8082) y
+  # CatalogService (8083).
+  port: 8085
+
+eureka:
+  client:
+    service-url:
+      # Dirección del Eureka Server (registro de microservicios), que corre
+      # en el puerto 8761. Si Eureka todavía no está levantado, este
+      # microservicio sigue funcionando igual, solo aparecerán warnings en consola.
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  # Clave secreta usada para verificar la firma de los JWT generados por AuthService.
+  # IMPORTANTE: debe ser EXACTAMENTE igual en todos los microservicios del equipo.
+  secret: miClaveSecretaMuyLargaParaJWTDeAlMenos32Caracteres123456789
+  # Tiempo de expiración del token, en milisegundos (3600000 ms = 1 hora).
+  expiration: 3600000
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    # Ruta donde se puede ver la documentación interactiva de la API:
+    # http://localhost:8085/swagger-ui.html
+    path: /swagger-ui.html
