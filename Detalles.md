@@ -1,19 +1,28 @@
+# Conexiones
+
 8761  -> Eureka
 
-8080  -> Gateway
+8765  -> Gateway
 
-8081  -> AuthService
 
-8082  -> ProfileService
+# Microservicios
 
-8083  -> CatalogService
+8080  -> AuthService
 
-8084  -> InventoryService
+8081  -> ProfileService
 
-8085  -> CartService
+8082  -> InventoryService
 
-8086  -> OrderService
+8083  -> CatalogService 8083
 
-8087  -> PaymentService
+8084  -> CartService
+
+8085  -> OrderService
+
+8086  -> PaymentService
+
+8087  -> Ratingservice
 
 8088  -> NotificationService
+
+8089  -> MarketplaceService
