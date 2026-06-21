@@ -3,9 +3,9 @@ spring:
     name: rating-service
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: postgresql://aws-1-us-west-2.pooler.supabase.com:6543/postgres
+    username: postgres.ehbuynzkmfhkpbefqbaw
+    password: Lumadedouc25.
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -28,7 +28,7 @@ spring:
     baseline-on-migrate: true
 
 server:
-  port: 8085
+  port: 8087
 
 eureka:
   client:
