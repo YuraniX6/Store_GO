@@ -1,4 +1,4 @@
-package com.storego.CartService;
+package com.storego.cartService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

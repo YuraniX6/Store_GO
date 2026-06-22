@@ -13,7 +13,7 @@
 
 8082  -> InventoryService
 
-8083  -> CatalogService 8083
+8083  -> CatalogService
 
 8084  -> CartService
 
