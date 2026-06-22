@@ -25,7 +25,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
-@Tag(name = "Profiles", description = "User profile management endpoints")
+@Tag(name = "Perfiles", description = "Endpoints para gestionar perfiles de usuario")
 @Slf4j
 public class ProfileController {
 
@@ -39,8 +39,8 @@ public class ProfileController {
 
     @PostMapping
     @Operation(
-            summary = "Create user profile",
-            description = "Creates a new profile for the authenticated user. Returns 409 if profile already exists or RUT is already taken.",
+            summary = "Crear perfil",
+            description = "Crea un nuevo perfil para el usuario autenticado. Retorna 409 si el perfil ya existe o el RUT está en uso.",
             security = @SecurityRequirement(name = "Bearer JWT")
     )
     @ApiResponses(value = {
@@ -65,8 +65,8 @@ public class ProfileController {
 
     @GetMapping("/me")
     @Operation(
-            summary = "Get my profile",
-            description = "Retrieves the authenticated user's full profile with RUT.",
+            summary = "Obtener mi perfil",
+            description = "Recupera el perfil completo del usuario autenticado con RUT.",
             security = @SecurityRequirement(name = "Bearer JWT")
     )
     @ApiResponses(value = {
@@ -87,8 +87,8 @@ public class ProfileController {
 
     @GetMapping("/{uuid}")
     @Operation(
-            summary = "Get public profile",
-            description = "Retrieves a public profile by UUID. Returns profile without RUT.",
+            summary = "Obtener perfil público",
+            description = "Recupera un perfil público por UUID. Retorna el perfil sin RUT.",
             security = @SecurityRequirement(name = "Bearer JWT")
     )
     @ApiResponses(value = {
@@ -110,8 +110,8 @@ public class ProfileController {
 
     @PatchMapping("/me")
     @Operation(
-            summary = "Update my profile",
-            description = "Updates the authenticated user's profile. RUT cannot be modified. All fields are optional.",
+            summary = "Actualizar mi perfil",
+            description = "Actualiza el perfil del usuario autenticado. El RUT no puede ser modificado. Todos los campos son opcionales.",
             security = @SecurityRequirement(name = "Bearer JWT")
     )
     @ApiResponses(value = {

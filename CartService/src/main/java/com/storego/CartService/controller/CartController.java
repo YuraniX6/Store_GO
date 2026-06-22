@@ -17,7 +17,10 @@ import com.storego.cartService.dto.CartRequest;
 import com.storego.cartService.dto.CartResponse;
 import com.storego.cartService.service.CartService;
 
-
+// Su única responsabilidad es recibir peticiones HTTP y devolver respuestas.
+// No contiene lógica de negocio, todo lo delega al CartService.
+// @RestController indica que cada método devuelve JSON directamente.
+// @RequestMapping("/cart") significa que todas las rutas de esta clase empiezan con /cart.
 @RestController
 @RequestMapping("/cart")
 @RequiredArgsConstructor

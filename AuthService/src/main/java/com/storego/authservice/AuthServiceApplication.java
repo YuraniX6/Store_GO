@@ -25,7 +25,7 @@ public class AuthServiceApplication {
         return args -> {
             log.info("Initializing application data...");
 
-            // Create ADMIN role if not exists
+            // Crear rol ADMIN si no existe
             if (roleRepository.findByName("ADMIN").isEmpty()) {
                 Role adminRole = Role.builder()
                         .name("ADMIN")
@@ -34,7 +34,7 @@ public class AuthServiceApplication {
                 log.info("ADMIN role created");
             }
 
-            // Create USER role if not exists
+            // Crear rol USER si no existe
             if (roleRepository.findByName("USER").isEmpty()) {
                 Role userRole = Role.builder()
                         .name("USER")
@@ -43,7 +43,7 @@ public class AuthServiceApplication {
                 log.info("USER role created");
             }
 
-            // Create admin user if not exists
+            // Crear usuario admin si no existe
             if (!userRepository.existsByUsername("admin")) {
                 Role adminRole = roleRepository.findByName("ADMIN").orElseThrow();
                 User adminUser = User.builder()

@@ -31,8 +31,8 @@ public class CatalogSkinController {
 
     @GetMapping
     @PreAuthorize("permitAll()")
-    @Operation(summary = "List skins with pagination and optional filters")
-    @ApiResponse(responseCode = "200", description = "Paginated skin list")
+    @Operation(summary = "Listar skins con filtros y paginación")
+    @ApiResponse(responseCode = "200", description = "Lista de skins paginada")
     public ResponseEntity<PagedResponse<CatalogSkinSummaryResponse>> list(
             @RequestParam(required = false) String weapon,
             @RequestParam(required = false) String category,
@@ -46,43 +46,43 @@ public class CatalogSkinController {
 
     @GetMapping("/all")
     @PreAuthorize("permitAll()")
-    @Operation(summary = "Get all skins without pagination")
-    @ApiResponse(responseCode = "200", description = "Full skin list ordered by name")
+    @Operation(summary = "Obtener todos los skins sin paginación")
+    @ApiResponse(responseCode = "200", description = "Lista completa de skins ordenada por nombre")
     public ResponseEntity<List<CatalogSkinSummaryResponse>> listAll() {
         return ResponseEntity.ok(service.listAll());
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("permitAll()")
-    @Operation(summary = "Get skin detail by ID")
-    @ApiResponse(responseCode = "200", description = "Skin detail including rawData")
-    @ApiResponse(responseCode = "404", description = "Skin not found")
+    @Operation(summary = "Obtener detalles de un skin por ID")
+    @ApiResponse(responseCode = "200", description = "Detalles del skin incluyendo rawData")
+    @ApiResponse(responseCode = "404", description = "Skin no encontrado")
     public ResponseEntity<CatalogSkinDetailResponse> getById(@PathVariable String id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Create a new skin (ADMIN only)")
-    @ApiResponse(responseCode = "201", description = "Skin created")
-    @ApiResponse(responseCode = "409", description = "Skin ID already exists")
+    @Operation(summary = "Crear un nuevo skin (solo ADMIN)")
+    @ApiResponse(responseCode = "201", description = "Skin creado")
+    @ApiResponse(responseCode = "409", description = "Skin con el mismo ID ya existe")
     public ResponseEntity<CatalogSkinDetailResponse> create(@RequestBody JsonNode body) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(body));
     }
 
     @PostMapping("/bulk")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Bulk create skins (ADMIN only)")
-    @ApiResponse(responseCode = "200", description = "Bulk result with per-skin success/error")
+    @Operation(summary = "Bulk creado de skins (solo ADMIN)", description = "Crea múltiples skins en una sola solicitud")
+    @ApiResponse(responseCode = "200", description = "Resultado del bulk create con éxito/error por skin")
     public ResponseEntity<BulkCreateResponse> bulkCreate(@RequestBody @Valid BulkCreateRequest request) {
         return ResponseEntity.ok(service.bulkCreate(request.getSkins()));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Update a skin (ADMIN only)")
-    @ApiResponse(responseCode = "200", description = "Skin updated")
-    @ApiResponse(responseCode = "404", description = "Skin not found")
+    @Operation(summary = "Actualizar un skin (solo ADMIN)")
+    @ApiResponse(responseCode = "200", description = "Skin actualizado")
+    @ApiResponse(responseCode = "404", description = "Skin no encontrado")
     public ResponseEntity<CatalogSkinDetailResponse> update(
             @PathVariable String id,
             @RequestBody JsonNode body) {
@@ -91,8 +91,8 @@ public class CatalogSkinController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Delete a skin (ADMIN only)")
-    @ApiResponse(responseCode = "204", description = "Skin deleted")
+    @Operation(summary = "Eliminar un skin (solo ADMIN)")
+    @ApiResponse(responseCode = "204", description = "Skin eliminado")
     @ApiResponse(responseCode = "404", description = "Skin not found")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);

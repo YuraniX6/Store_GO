@@ -23,22 +23,21 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    @Operation(summary = "Register a new user", description = "Create a new user account")
+    @Operation(summary = "Registrar un nuevo Usuario", description = "Crea un nuevo usuario")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
         AuthResponse response = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
     @PostMapping("/login")
-    @Operation(summary = "Login user", description = "Authenticate user and get JWT token")
+    @Operation(summary = "Usuario Cargado", description = "Iniciar sesión con credenciales válidas")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/validate")
-    @Operation(summary = "Validate token", description = "Check if JWT token is valid")
-    public ResponseEntity<Boolean> validateToken(@RequestHeader("Authorization") String authHeader) {
+    @Operation(summary = "Valida Token", description = "Valida la autenticidad del token JWT")
+    public ResponseEntity<Boolean> validateToken(@RequestHeader("Autorizacion") String authHeader) {
         String token = authHeader != null && authHeader.startsWith("Bearer ") 
             ? authHeader.substring(7) 
             : null;
@@ -54,7 +53,7 @@ public class AuthController {
     @PostMapping("/refresh")
     @PreAuthorize("isAuthenticated()")
     @SecurityRequirement(name = "bearerAuth")
-    @Operation(summary = "Refresh token", description = "Generate new JWT token using refresh token")
+    @Operation(summary = "Refresca token", description = "Refresca el token JWT utilizando un token de actualización válido")
     public ResponseEntity<AuthResponse> refreshToken(@Valid @RequestBody RefreshRequest request) {
         AuthResponse response = authService.refreshToken(request);
         return ResponseEntity.ok(response);

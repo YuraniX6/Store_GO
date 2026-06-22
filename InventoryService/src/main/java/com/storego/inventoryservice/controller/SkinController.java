@@ -27,18 +27,18 @@ import java.util.UUID;
 @RequestMapping("/skins")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Skins", description = "API endpoints for managing user's skin inventory")
+@Tag(name = "Skins", description = "API por el manejo de skins en el inventario del usuario")
 @SecurityRequirement(name = "Bearer Authentication")
 public class SkinController {
 
     private final SkinService skinService;
 
     @PostMapping
-    @Operation(summary = "Create a new skin", description = "Creates a new skin in the user's inventory. ownerId is extracted from JWT.")
+    @Operation(summary = "Crear un nuevo skin", description = "Crea un nuevo skin en el inventario del usuario. ownerId se extrae del JWT.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Skin created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SkinResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid request body or validation failed"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized - invalid or missing JWT token")
+            @ApiResponse(responseCode = "201", description = "Skin creado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SkinResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Cuerpo de solicitud inválido o falla en la validación"),
+            @ApiResponse(responseCode = "401", description = "No autorizado - token JWT inválido o faltante")
     })
     public ResponseEntity<SkinResponse> createSkin(
             @Valid @RequestBody CreateSkinRequest request,
@@ -54,8 +54,8 @@ public class SkinController {
     @GetMapping("/me")
     @Operation(summary = "List all my skins", description = "Retrieves all skins belonging to the authenticated user.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "List of user's skins (may be empty)", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SkinResponse.class)))),
-            @ApiResponse(responseCode = "401", description = "Unauthorized - invalid or missing JWT token")
+            @ApiResponse(responseCode = "200", description = "Lista de temas del usuario (puede estar vacía)", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SkinResponse.class)))),
+            @ApiResponse(responseCode = "401", description = "No autorizado - token JWT inválido o faltante")
     })
     public ResponseEntity<List<SkinResponse>> getMySkins(Authentication authentication) {
         log.info("GET /skins/me - Retrieving all skins for user");
@@ -70,9 +70,9 @@ public class SkinController {
     @Operation(summary = "Get skin by ID", description = "Retrieves a specific skin by its ID. Only the owner can access their skin.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Skin found and returned", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SkinResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid UUID format in path parameter"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized - invalid or missing JWT token"),
-            @ApiResponse(responseCode = "403", description = "Forbidden - skin belongs to another user"),
+            @ApiResponse(responseCode = "400", description = "Formato de UUID inválido en el parámetro de ruta"),
+            @ApiResponse(responseCode = "401", description = "No autorizado - token JWT inválido o faltante"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado - el skin pertenece a otro usuario"),
             @ApiResponse(responseCode = "404", description = "Skin not found")
     })
     public ResponseEntity<SkinResponse> getSkin(
@@ -91,10 +91,10 @@ public class SkinController {
     @Operation(summary = "Update a skin", description = "Updates an existing skin. Only the owner can update their skin.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Skin updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SkinResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid UUID or request body validation failed"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized - invalid or missing JWT token"),
-            @ApiResponse(responseCode = "403", description = "Forbidden - skin belongs to another user"),
-            @ApiResponse(responseCode = "404", description = "Skin not found")
+            @ApiResponse(responseCode = "400", description = "UUID inválido o falla en la validación del cuerpo de la solicitud"),
+            @ApiResponse(responseCode = "401", description = "No autorizado - token JWT inválido o faltante"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado - el skin pertenece a otro usuario"),
+            @ApiResponse(responseCode = "404", description = "Skin no encontrado")
     })
     public ResponseEntity<SkinResponse> updateSkin(
             @PathVariable String id,
@@ -113,10 +113,10 @@ public class SkinController {
     @Operation(summary = "Delete a skin", description = "Deletes a skin from the user's inventory. Only the owner can delete their skin.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Skin deleted successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid UUID format in path parameter"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized - invalid or missing JWT token"),
-            @ApiResponse(responseCode = "403", description = "Forbidden - skin belongs to another user"),
-            @ApiResponse(responseCode = "404", description = "Skin not found")
+            @ApiResponse(responseCode = "400", description = "Formato de UUID inválido en el parámetro de ruta"),
+            @ApiResponse(responseCode = "401", description = "No autorizado - token JWT inválido o faltante"),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado - el skin pertenece a otro usuario"),
+            @ApiResponse(responseCode = "404", description = "Skin no encontrado")
     })
     public ResponseEntity<Void> deleteSkin(
             @PathVariable String id,
