@@ -39,15 +39,14 @@ public class InventoryClient {
                             inventoryServiceUrl, ownerId, skinId)
                     .header("Authorization", "Bearer " + token)
                     .retrieve()
-                    .onStatus(HttpStatusCode::isError, clientResponse -> {
-                        log.error("Error en validación de inventario: status={}", clientResponse.getStatusCode());
-                        return clientResponse.bodyToMono(String.class)
+                    .onStatus(HttpStatusCode::isError, clientResponse ->
+                        clientResponse.bodyToMono(String.class)
                                 .flatMap(body -> Mono.error(
                                         new InventoryValidationException(
                                                 "Error en validación de inventario: " + body
                                         )
-                                ));
-                    })
+                                ))
+                    )
                     .bodyToMono(Boolean.class)
                     .block();
             
@@ -85,15 +84,14 @@ public class InventoryClient {
                             inventoryServiceUrl, skinId)
                     .header("Authorization", "Bearer " + token)
                     .retrieve()
-                    .onStatus(HttpStatusCode::isError, clientResponse -> {
-                        log.error("Error obteniendo información de skin: status={}", clientResponse.getStatusCode());
-                        return clientResponse.bodyToMono(String.class)
+                    .onStatus(HttpStatusCode::isError, clientResponse ->
+                        clientResponse.bodyToMono(String.class)
                                 .flatMap(body -> Mono.error(
                                         new InventoryValidationException(
                                                 "Error obteniendo información de skin: " + body
                                         )
-                                ));
-                    })
+                                ))
+                    )
                     .bodyToMono(String.class)
                     .block();
         } catch (Exception e) {
